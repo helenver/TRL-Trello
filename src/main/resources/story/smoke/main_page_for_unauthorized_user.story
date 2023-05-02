@@ -16,6 +16,6 @@ When I wait until element located by `By.xpath(//main[@id='skip-target'])` appea
 
 Scenario:Verify the top section of main page for unauthorized user
 When I scroll element located `By.xpath(//*[contains(text(),'Keep everything')]//ancestor-or-self::section)` into view
-When I COMPARE_AGAINST baseline with name `TopSection` ignoring:
+When I COMPARE_AGAINST baseline with name `MainPage` ignoring:
 |element                                                                            |
 |By.xpath(//*[contains(text(),'Keep everything')]//ancestor-or-self::div[@class][2])|

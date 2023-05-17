@@ -1,0 +1,9 @@
+Composite: When I delete the board with $boardId via API
+When I execute HTTP DELETE request for resource with relative URL `/1/boards/<boardId>?key=${key}&token=${token}`
+Then response code is equal to `200`
+Then JSON element from `${response}` by JSON path `$._value` is equal to  `null`
+When I set request headers:
+|name        |value           |
+|Content-Type|application/json|
+When I execute HTTP GET request for resource with relative URL `/1/boards/<boardId>?key=${key}&token=${token}`
+Then response code is equal to `404`

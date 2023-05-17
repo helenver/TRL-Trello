@@ -1,10 +1,8 @@
 Scenario: User can log in
 When I log in with ${email} and ${password}
-When I click on element located by `By.xpath(//span[text()='Log in'])`
 
 Scenario: User can create a new board with workspace visibility
 Given I initialize story variable `NewBoardName` with value `#{generate(Animal.name)}`
-When I wait until state of element located by `By.xpath(//p[text()='Create'])` is visible
 When I click on element located by `By.xpath(//*[@aria-label='Create board or Workspace'])`
 When I click on element located by `By.caseSensitiveText(Create board)`
 When I enter `${NewBoardName}` in field located by `By.xpath(//*/input[@type='text'])`

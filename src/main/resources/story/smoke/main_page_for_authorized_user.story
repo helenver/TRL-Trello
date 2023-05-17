@@ -1,7 +1,5 @@
 Scenario: Verify that user can log in
 When I log in with ${email} and ${password}
-When I click on element located by `By.xpath(//span[text()='Log in'])`
-When I wait until state of element located by `By.xpath(//p[text()='Create'])` is visible
 
 Scenario: Verify presence of the elements in the header menu
 When I click on element located by `By.xpath(//button[@title=<HeaderElement>])`
@@ -41,14 +39,14 @@ When I change context to element located by `By.xpath(//div[@class='atlaskit-por
 When I COMPARE_AGAINST baseline with name `ThemePopUp`
 When I reset context
 
-Scenario: Verify that user can open Home page 
+Scenario: Verify that user can open Home page
 When I click on element located by `By.xpath(//span[text()='Home'])`
 When I wait until element located by `By.xpath(//*[text()='Stay on track and up to date'])` appears
 
 Scenario: Verify that user can open Templates page
 When I click on element located by `By.xpath(//nav[@class='home-left-sidebar-container']//*[text()='Templates'])`
 When I wait until element located by `By.xpath(//*[text()='Featured categories'])` appears
- 
+
 Scenario: Verify that user can choose a template in the featured categories section
 When I click on element located by `By.xpath(//*[@data-testid='templates-container']//*[@href='/templates/business'])`
 When I wait until element located by `By.xpath(//*[text()='Business templates'])` appears
@@ -58,7 +56,7 @@ When I click on element located by `By.xpath(//*[@aria-label='Open member menu']
 When I wait until element located by `By.xpath(//*[@data-testid='account-menu'])` appears
 Then text `${email}` exists
 
-Scenario: Verify that user can log out 
+Scenario: Verify that user can log out
 When I click on element located by `By.xpath(//span[text()='Log out'])`
 When I wait until element located by `By.id(logout-submit)` appears
 When I click on element located by `By.id(logout-submit)`

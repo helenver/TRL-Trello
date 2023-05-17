@@ -7,11 +7,13 @@ ext.buildSystemDir = file("${buildSystemPath}")
 apply from: "${buildSystemPath}/vividus-test-project.gradle"
 
 ext {
-    vividusVersion = '0.5.8'
+    vividusVersion = '0.5.9'
 }
 
 dependencies {
     implementation(group: 'org.vividus', name: 'vividus', version: vividusVersion)
     implementation(group: 'org.vividus', name: 'vividus-plugin-web-app', version: vividusVersion)
     implementation(group: 'org.vividus', name: 'vividus-plugin-visual', version: vividusVersion )
+    implementation(group: 'org.vividus', name: 'vividus-plugin-rest-api', version: vividusVersion)
+    implementation(group: 'org.vividus', name: 'vividus-plugin-web-app-to-rest-api', version: vividusVersion)
 }

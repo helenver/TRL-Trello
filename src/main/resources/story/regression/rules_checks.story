@@ -3,10 +3,12 @@ GivenStories:/story/precondition/create_card_with_details.story
 Scenario: Log in as a board creator
 When I log in with ${email} and ${password}
 
-Scenario: User can add lists with filled cards to the created board
+Scenario: Add lists with filled cards to the created board
 When I click on element located by `By.xpath(//div[@title='${boardName}'])`
 
 Scenario: Select a trigger in "Card Move" section
+When I refresh page
+When I wait until state of element located by `By.xpath(//span[text()='Automation'])` is visible
 When I click on element located by `By.xpath(//span[text()='Automation'])`
 When I click on element located by `By.xpath(//*[contains(text(),'Create rules')])`
 When I switch to frame located `By.xpath(//iframe[@class="butler-iframe"])`
@@ -27,7 +29,7 @@ When I click on element located by `By.caseSensitiveText(Add/Remove)`
 When I click on element located by `By.xpath((//div[text()="blue"])[2]/../preceding-sibling::div[contains(@class,"blue icon")]//i)`
 Then number of elements found by `By.xpath(//*[text()="Actions"]//following::*[contains(text(),"add the blue label")])` is equal to `1`
 
-Scenario: Select an action in "Dates" section 
+Scenario: Select an action in "Dates" section
 When I click on element located by `By.caseSensitiveText(Dates)`
 When I click on element located by `By.xpath((//span[text()="now"])[1])`
 When I click on element located by `By.xpath((//div[text()="the next"])[1]/../preceding-sibling::div//i[@class="plus icon"])`
@@ -45,7 +47,7 @@ Scenario: Delete an action 'rename the card to'
 When I click on element located by `By.xpath(//textarea[text()="${newCardTitle}"]//following::i[@class="trash icon"][1])`
 Then number of elements found by `By.xpath(//textarea[text()="${newCardTitle}"])` is equal to `0`
 
-Scenario: Save the created rule 
+Scenario: Save the created rule
 When I click on element located by `By.caseSensitiveText(Save)`
 Then number of elements found by `By.xpath(//div[contains(text(),"when a card is added to the board")])` is equal to `1`
 
@@ -117,7 +119,7 @@ When I enter `${cardWithoutActions}` in field located by `By.xpath(//textarea[@p
 When I click on element located by `By.xpath(//input[@value='Add card'])`
 When I click on element located by `By.xpath(//span[text()="${cardWithoutActions}"])`
 Then number of elements found by `By.xpath(//div[contains(text(),"marked the due date complete")])` is equal to `0`
-Then number of elements found by `By.xpath(//div[@data-testid]//button[@data-color="blue"])` is equal to `0`
+Then number of elements found by `By.xpath(//div[contains(@class,"card-detail-window")]//button[@data-color])` is equal to `0`
 
 Scenario: Delete board via API
 When I delete the board with ${boardId} via API

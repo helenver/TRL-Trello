@@ -1,7 +1,7 @@
 Scenario: User can log in
 When I log in with ${email} and ${password}
 
-Scenario: User can create a new board with workspace visibility
+Scenario: Create a new board with workspace visibility
 Given I initialize story variable `NewBoardName` with value `#{generate(Animal.name)}`
 When I click on element located by `By.xpath(//*[@aria-label='Create board or Workspace'])`
 When I click on element located by `By.caseSensitiveText(Create board)`
@@ -11,15 +11,25 @@ When I wait until state of element located by `By.xpath(//*[@aria-label='Board n
 When I scroll element located `By.xpath(//*[@aria-label='Board name'])` into view
 Then text `${NewBoardName}` exists
 
-Scenario: User can add lists with filled cards to the created board
-When I enter `#{generate(Hobby.activity)}` in field located by `By.xpath(<InputField>)`
-When I click on element located by `By.xpath(<AddButton>)`
-When I click on element located by `By.xpath(<FieldName>)`
+Scenario: Add lists to the created board
+Given I initialize story variable `List1` with value `#{generate(Hobby.activity)}`
+Given I initialize story variable `List2` with value `#{generate(Hobby.activity)}`
+When I click on element located by `By.xpath(<List>)`
+When I enter `<ListName>` in field located by `By.xpath(<InputField>)`
+When I click on element located by `By.xpath(<AddListButton>)`
 Examples:
-|InputField                       |AddButton                 |FieldName                                                          |
-|//input[@class='list-name-input']|//input[@value='Add list']|//span[text()='Add a card']                                        |
-|//textarea[@placeholder]         |//input[@value='Add card']|//span[text()='Add another list']//ancestor-or-self::div[@class][1]|
-|//input[@class='list-name-input']|//input[@value='Add list']|//p[text()='0 cards']//following::span[text()='Add a card']        |
+|List                             |ListName|InputField                               |AddListButton             |
+|//input[@class='list-name-input']|${List1}|//input[@placeholder='Enter list title…']|//input[@value='Add list']|
+|//input[@class='list-name-input']|${List2}|//input[@placeholder='Enter list title…']|//input[@value='Add list']|
+
+Scenario: Add cards to the lists
+When I click on element located by `By.xpath(<Card>)`
+When I enter `#{generate(Hobby.activity)}` in field located by `By.xpath(<InputField>)`
+When I click on element located by `By.xpath(<AddCardButton>)`
+Examples:
+|Card                            |InputField              |AddCardButton             |
+|(//span[text()='Add a card'])[1]|//textarea[@placeholder]|//input[@value='Add card']|
+|(//span[text()='Add a card'])[2]|//textarea[@placeholder]|//input[@value='Add card']|
 
 Scenario: Visual display of elements in the Customize views DDL
 When I click on element located by `By.xpath(//button[@aria-label='Customize views'])`
@@ -37,7 +47,7 @@ Scenario: The created board is present on the main page
 When I click on element located by `By.xpath(//a[@aria-label="Back to home"])`
 Then field located `By.xpath((//a[contains(@href,'${NewBoardName}')])[2])` exists
 
-Scenario: User can delete the created board
+Scenario: Delete the created board
 When I click on element located by `By.xpath((//a[contains(@href,'${NewBoardName}')])[2])`
 When I wait until state of element located by `By.xpath(//span[@data-testid='OverflowMenuHorizontalIcon'])` is visible
 When I click on element located by `By.xpath(//span[@data-testid='OverflowMenuHorizontalIcon'])`
@@ -45,7 +55,8 @@ When I wait until state of element located by `By.xpath(//a[contains(@class,'ope
 When I click on element located by `By.xpath(//a[contains(@class,'open-more')])`
 When I click on element located by `By.xpath(//a[contains(@class,'close-board')])`
 When I click on element located by `By.buttonName(Close)`
-When I click on element located by `By.caseSensitiveText(Permanently delete board)`
+When I scroll element located by `By.xpath(//h1[@data-testid="close-board-big-message"])` into view
+When I click on element located by `By.xpath(//*[contains(@data-testid,"delete-board")])`
 When I click on element located by `By.caseSensitiveText(Delete)`
 When I wait until element located by `By.xpath(//span[text()='Board deleted.'])` appears
 When I wait until element located by `By.xpath(//a[contains(@href,'${NewBoardName}')])` disappears

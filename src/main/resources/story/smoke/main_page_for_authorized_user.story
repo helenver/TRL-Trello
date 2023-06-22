@@ -7,7 +7,7 @@ Then text `<text>` exists
 Examples:
 |HeaderElement|text                                                    |
 |'Workspaces' |Your Workspaces                                         |
-|'Recent'     |team board                                              |
+|'Recent'     |You’ll find the boards you’ve recently viewed here.     |
 |'Starred'    |Star important boards to access them quickly and easily.|
 |'Templates'  |Top templates                                           |
 
@@ -26,32 +26,30 @@ When I click on element located by `By.xpath(//*[@data-testId='HelpIcon'])`
 When I wait until element located by `By.xpath(//button[text()='Get a new tip.'])` appears
 
 Scenario: Verify the display of elements in the "information" tab
-When I change context to element located by `By.xpath(//div[@class='atlaskit-portal']//section)`
-When I COMPARE_AGAINST baseline with name `InformationPopUp` ignoring:
-|element                                  |
-|By.xpath(//a[@rel='noopener noreferrer'])|
+When I change context to element located by `By.xpath(//a[text()="Pricing"]//ancestor-or-self::ul)`
+When I COMPARE_AGAINST baseline with name `InformationPopUp`
 When I reset context
 
-Scenario: Verify that user can open "theme" tab
+Scenario: Verify the "theme" tab
 When I click on element located by `By.xpath(//*[@data-testId='ThemeIcon'])`
 When I scroll element located `By.xpath(//div[@class='atlaskit-portal']//section)` into view
 When I change context to element located by `By.xpath(//div[@class='atlaskit-portal']//section)`
 When I COMPARE_AGAINST baseline with name `ThemePopUp`
 When I reset context
 
-Scenario: Verify that user can open Home page
+Scenario: Verify the Home page
 When I click on element located by `By.xpath(//span[text()='Home'])`
-When I wait until element located by `By.xpath(//*[text()='Stay on track and up to date'])` appears
+When I wait until element located by `By.xpath(//*[text()='Organize anything'])` appears
 
-Scenario: Verify that user can open Templates page
+Scenario: Verify the Templates page
 When I click on element located by `By.xpath(//nav[@class='home-left-sidebar-container']//*[text()='Templates'])`
 When I wait until element located by `By.xpath(//*[text()='Featured categories'])` appears
 
-Scenario: Verify that user can choose a template in the featured categories section
+Scenario: Choose a template in the featured categories section
 When I click on element located by `By.xpath(//*[@data-testid='templates-container']//*[@href='/templates/business'])`
 When I wait until element located by `By.xpath(//*[text()='Business templates'])` appears
 
-Scenario: Verify that user can open their "account" tab
+Scenario: Verify the "account" tab
 When I click on element located by `By.xpath(//*[@aria-label='Open member menu']/div)`
 When I wait until element located by `By.xpath(//*[@data-testid='account-menu'])` appears
 Then text `${email}` exists

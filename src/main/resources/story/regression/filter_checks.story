@@ -5,6 +5,7 @@ When I log in with ${email} and ${password}
 
 Scenario: Find the cards assigned to me
 When I click on element located by `By.xpath(//div[@title='${boardName}'])`
+When I refresh page
 When I click on element located by `By.buttonName(Filter)`
 When I click on element located by `By.xpath(//*[@title="Cards assigned to me"])`
 Then field located `By.xpath(//span[@data-testid="filter-popover-button-card-count" and text()='1'])` exists
